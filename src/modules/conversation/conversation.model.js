@@ -19,4 +19,7 @@ const ConversationSchema = new mongoose.Schema({
   }
 });
 
+ConversationSchema.index({ user_id: 1 });
+ConversationSchema.index({ persona_id: 1 });
+
 module.exports = mongoose.model("Conversation", ConversationSchema);

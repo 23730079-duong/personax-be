@@ -59,4 +59,7 @@ const PersonaSchema = new mongoose.Schema(
   }
 );
 
+PersonaSchema.index({ creator_id: 1 });
+PersonaSchema.index({ visibility: 1 });
+
 module.exports = mongoose.model("Persona", PersonaSchema);
