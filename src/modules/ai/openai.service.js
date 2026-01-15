@@ -5,11 +5,16 @@ const client = new OpenAI({
 });
 
 const generateReply = async ({ messages, model, temperature }) => {
-  const response = await client.chat.completions.create({
+  const payload = {
     model,
-    messages,
-    temperature
-  });
+    messages
+  };
+
+  if (!model.includes("nano") && temperature !== undefined) {
+    payload.temperature = temperature;
+  }
+
+  const response = await client.chat.completions.create(payload);
 
   return response.choices[0].message.content;
 };
