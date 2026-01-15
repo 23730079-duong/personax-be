@@ -2,6 +2,12 @@ const bcrypt = require("bcrypt");
 const User = require("../users/user.model");
 const { generateToken } = require("../../utils/token");
 
+const sanitizeUser = (user) => {
+  const obj = user.toObject();
+  delete obj.password_hash;
+  return obj;
+};
+
 /**
  * Register user
  * @param {Object} payload
@@ -33,7 +39,7 @@ const register = async ({ email, username, password }) => {
   });
 
   return {
-    user,
+    user: sanitizeUser(user),
     token
   };
 };
@@ -68,7 +74,7 @@ const login = async ({ identifier, password }) => {
   });
 
   return {
-    user,
+    user: sanitizeUser(user),
     token
   };
 };
